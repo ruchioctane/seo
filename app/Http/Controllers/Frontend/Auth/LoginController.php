@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Frontend\Auth;
-
 use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
 use App\Exceptions\GeneralException;
@@ -38,9 +36,11 @@ class LoginController extends Controller
      *
      * @return string
      */
-    public function redirectPath()
-    {
+    public function redirectPath(){
+        echo "fdjh";die;
+
         if (access()->allow('view-backend')) {
+
             return route('admin.dashboard');
         }
 
@@ -55,6 +55,12 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('frontend.auth.login')
+            ->withSocialiteLinks((new Socialite())->getSocialLinks());
+    }
+
+    public function showLoginFormUser(){
+
+        return view('frontend.user.login')
             ->withSocialiteLinks((new Socialite())->getSocialLinks());
     }
 
@@ -93,6 +99,9 @@ class LoginController extends Controller
         return redirect()->intended($this->redirectPath());
     }
 
+
+
+
     /**
      * Log the user out of the application.
      *
@@ -130,7 +139,7 @@ class LoginController extends Controller
         $request->session()->flush();
         $request->session()->regenerate();
 
-        return redirect('/');
+        return redirect('/login');
     }
 
     /**

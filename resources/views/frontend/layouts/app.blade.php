@@ -1,70 +1,125 @@
-@php
-    use Illuminate\Support\Facades\Route;
-@endphp
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>@yield('title', app_name())</title>
+<html dir="ltr" lang="en">
+<head>
 
-        <!-- Meta -->
-        <meta name="description" content="@yield('meta_description', 'Laravel AdminPanel')">
-        <meta name="author" content="@yield('meta_author', 'Viral Solani')">
-        @yield('meta')
+<!-- Meta Tags -->
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<!-- Page Title -->
+<title>Welcome To Our Website</title>
 
-        <!-- Styles -->
-        @yield('before-styles')
+<!-- Stylesheet -->
+<link href="/css-front/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/css-front/jquery-ui.min.css" rel="stylesheet" type="text/css">
+<link href="/css-front/animate.css" rel="stylesheet" type="text/css">
+<link href="/css-front/css-plugin-collections.css" rel="stylesheet"/>
+<!-- CSS | menuzord megamenu skins -->
+<link id="menuzord-menu-skins" href="css-front/menuzord-skins/menuzord-boxed.css" rel="stylesheet"/>
+<!-- CSS | Main style file -->
+<link href="/css-front/style-main.css" rel="stylesheet" type="text/css">
+<!-- CSS | Preloader Styles -->
+<link href="/css-front/preloader.css" rel="stylesheet" type="text/css">
+<!-- CSS | Custom Margin Padding Collection -->
+<link href="/scss-front/custom-bootstrap-margin-padding.css" rel="stylesheet" type="text/css">
+<!-- CSS | Responsive media queries -->
+<link href="/css-front/responsive.css" rel="stylesheet" type="text/css">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
+<!-- <link href="css/style.css" rel="stylesheet" type="text/css"> -->
 
-        <!-- Check if the language is set to RTL, so apply the RTL layouts -->
-        <!-- Otherwise apply the normal LTR layouts -->
-        @langRTL
-            {{ Html::style(getRtlCss(mix('css/frontend.css'))) }}
-        @else
-            {{ Html::style(mix('css/frontend.css')) }}
-        @endif
-        {!! Html::style('js/select2/select2.css') !!}
-        @yield('after-styles')
+<!-- Revolution Slider 5.x CSS settings -->
+<link  href="/css-front/revolution-slider/css/settings.css" rel="stylesheet" type="text/css"/>
+<link  href="/css-front/revolution-slider/css/layers.css" rel="stylesheet" type="text/css"/>
+<link  href="/css-front/revolution-slider/css/navigation.css" rel="stylesheet" type="text/css"/>
 
-        <!-- Scripts -->
-        <script>
-            window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),
-            ]); ?>
-        </script>
-        <?php
-            if(!empty($google_analytics)){
-                echo $google_analytics;
-            }
-        ?>
-    </head>
-    <body id="app-layout">
-        <div id="app">
-            @include('includes.partials.logged-in-as')
-            @include('frontend.includes.nav')
+<!-- CSS | Theme Color -->
+<link href="/css-front/colors/theme-skin-blue.css" rel="stylesheet" type="text/css">
+<link href="/css-front/icon-font.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<!-- external javascripts -->
 
-            <div class="container">
-                @include('includes.partials.messages')
-                @yield('content')
-            </div><!-- container -->
-        </div><!--#app-->
+<script src="/frontjs/jquery-2.2.4.min.js"></script>
+<script src="/frontjs/jquery-ui.min.js"></script>
+<script src="/frontjs/bootstrap.min.js"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="/frontjs/jquery-plugin-collection.js"></script>
 
-        <!-- Scripts -->
-        @yield('before-scripts')
-        {!! Html::script(mix('js/frontend.js')) !!}
-        @yield('after-scripts')
-        {{ Html::script('js/jquerysession.js') }}
-        {{ Html::script('js/frontend/frontend.js') }}
-        {!! Html::script('js/select2/select2.js') !!}
+<!-- Revolution Slider 5.x SCRIPTS -->
+<script src="/frontjs/revolution-slider/js/jquery.themepunch.tools.min.js"></script>
+<script src="/frontjs/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
-        <script type="text/javascript">
-            if("{{Route::currentRouteName()}}" !== "frontend.user.account")
-            {
-                $.session.clear();
-            }
-        </script>
-        @include('includes.partials.ga')
-    </body>
+
+<script>
+$( document ).ready(function() {    
+$('.desktopserch').click(function(){
+  $(".maininputdesktop").toggle(00)
+  });  
+}); 
+</script>
+
+</head>
+<body class="has-side-panel side-panel-right fullwidth-page side-push-panel">
+
+
+
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-block">
+	<button type="button" class="close" data-dismiss="alert">×</button>	
+        <strong>{{ $message }}</strong>
+</div>
+@endif
+
+
+@if ($message = Session::get('error'))
+<div class="alert alert-danger alert-block">
+	<button type="button" class="close" data-dismiss="alert">×</button>	
+        <strong>{{ $message }}</strong>
+</div>
+@endif
+
+@if ($errors->any())
+<div class="alert alert-danger alert-block">
+  <button type="button" class="close" data-dismiss="alert">×</button> 
+        {{ implode('', $errors->all(':message')) }}
+  </div>
+@endif
+<div id="wrapper" class="clearfix">
+@include("frontend.partials.header")
+
+@yield('content')
+
+@include("frontend.partials.footer")
+
+     <!-- Footer Scripts -->
+<!-- JS | Custom script for all pages -->   
+<script src="/frontjs/custom.js"></script>
+
+<!-- SLIDER REVOLUTION 5.0 EXTENSIONS  
+      (Load Extensions only on Local File Systems ! 
+       The following part can be removed on Server for On Demand Loading) -->
+<script type="text/javascript" src="/frontjs/revolution-slider/js/extensions/revolution.extension.actions.min.js"></script>
+<script type="text/javascript" src="/frontjs/revolution-slider/js/extensions/revolution.extension.carousel.min.js"></script>
+<script type="text/javascript" src="/frontjs/revolution-slider/js/extensions/revolution.extension.kenburn.min.js"></script>
+<script type="text/javascript" src="/frontjs/revolution-slider/js/extensions/revolution.extension.layeranimation.min.js"></script>
+<script type="text/javascript" src="/frontjs/revolution-slider/js/extensions/revolution.extension.migration.min.js"></script>
+<script type="text/javascript" src="/frontjs/revolution-slider/js/extensions/revolution.extension.navigation.min.js"></script>
+<script type="text/javascript" src="/frontjs/revolution-slider/js/extensions/revolution.extension.parallax.min.js"></script>
+<script type="text/javascript" src="/frontjs/revolution-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
+<script type="text/javascript" src="/frontjs/revolution-slider/js/extensions/revolution.extension.video.min.js"></script>
+
+
+<script>
+$( document ).ready(function() {    
+$('.mobileshow').click(function(){
+  $(".mobileinputshow").toggle(00)});  
+}); 
+
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+
+</script>
+</body>
 </html>

@@ -24,9 +24,11 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
      */
     Route::group(['middleware' => 'guest'], function () {
         // Authentication Routes
-        Route::get('login', 'LoginController@showLoginForm')->name('login');
-        Route::post('login', 'LoginController@login')->name('login');
+        Route::get('loginAdmin', 'LoginController@showLoginForm')->name('login');
+        Route::post('loginAdmin', 'LoginController@login')->name('login');
 
+        Route::get('login', 'LoginController@showLoginFormUser')->name('login');
+   
         // Socialite Routes
         Route::get('login/{provider}', 'SocialLoginController@login')->name('social.login');
 
